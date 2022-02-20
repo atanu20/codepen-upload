@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="Description" content="Enter your description here" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', sans-serif;
+      }
+      .pdfbox {
+        width: 100%;
+        min-height: 100vh;
+        background-color: ghostwhite;
+        padding: 75px 0 25px 0;
+      }
+      .form-control {
+        border: none !important;
+        /* background-color: gainsboro; */
+      }
+    </style>
+    <title>Print pdf</title>
+  </head>
+  <body>
+    <div class="pdfbox">
+      <div class="container" id="pdfcontent">
+        <h1>Billing System with print pdf</h1>
+        <form id="forminput">
+          <div id="conn">
+            <div class="form-group">
+              <label for="usr">Name:</label>
+              <input type="text" class="form-control" id="usr" />
+            </div>
+            <div class="form-group">
+              <label for="pwd">Password:</label>
+              <input type="number" class="form-control" id="pwd" />
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-dark" onclick="addMore()">
+            +Add New
+          </button>
+          &nbsp;
+          <button class="btn btn-info">Print</button>
+        </form>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+      document
+        .getElementById('forminput')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          var element = document.getElementById('pdfcontent');
+          var opt = {
+            margin: 1,
+            filename: 'myfile.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+          };
+
+          // Old monolithic-style usage:
+          html2pdf(element, opt);
+        });
+
+      // let count=1;
+      const addMore = () => {
+        html = `<div class="form-group">
+            <label for="usr">Name:</label>
+            <input type="text" class="form-control" id="usr" />
+          </div>
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="number" class="form-control" id="pwd" />
+          </div>`;
+
+        var fomdata = document.getElementById('conn');
+        fomdata.innerHTML += html;
+      };
+    </script>
+  </body>
+</html>
